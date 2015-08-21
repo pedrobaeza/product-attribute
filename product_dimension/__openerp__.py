@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#    Copyright 2015 Camptocamp SA
+#    Copyright (C) 2015  ADHOC SA  (http://www.adhoc.com.ar)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,7 +14,12 @@
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
-import product_weight_update
+{
+    'name': 'Product Dimension',
+    'version': '2.0',
+    'category': 'Product',
+    'author':  'ADHOC SA,Camptocamp,Odoo Community Association (OCA)',
+    'license': 'AGPL-3',
+    'depends': ['product'],
+    'data': ['product_view.xml'],
+}
