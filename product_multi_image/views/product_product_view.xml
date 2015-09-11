@@ -16,6 +16,17 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="view_product_product_form_img_inh" model="ir.ui.view">
+            <field name="name">product.product.images.m2m</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="default_code" position="after">
+                        <field name="images" widget="many2many_tags" readonly="1"/>
+                </field>
+            </field>
+        </record>
 
     </data>
 </openerp>

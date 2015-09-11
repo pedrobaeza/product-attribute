@@ -35,4 +35,6 @@
         'views/res_company_view.xml'
     ],
     'installable': True,
+    "pre_init_hook": "get_from_product_medium",
+    "post_init_hook": "get_from_product_images",
 }
