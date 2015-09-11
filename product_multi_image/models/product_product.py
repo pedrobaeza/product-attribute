@@ -20,9 +20,26 @@
 #
 ##############################################################################
 import logging
+import imghdr
+import base64
 from openerp import models, fields, api, _
 
 _logger = logging.getLogger(__name__)
+
+
+class Product(models.Model):
+    _inherit = "product.product"
+
+    @api.one
+    @api.depends("product_tmpl_id.image_ids.products")
+    def _get_images(self):
+        self.images = self.product_tmpl_id.image_ids.filtered(
+            lambda x: self in x.products)
+
+    images = fields.Many2many(comodel_name="product.image",
+                              relation='product_product_image_rel',
+                              compute='_get_images',
+                              string="Images")
 
 
 class ProductProduct(models.Model):
@@ -40,13 +57,17 @@ class ProductProduct(models.Model):
             self.image_small = self.image_ids[0].image_small
 
     def _set_image(self, image):
-        if self.image:
+        if image:
+            extension = imghdr.what('', base64.b64decode(image))
+            extension = '.{}'.format(extension or 'jpg')
             if self.image_ids:
                 self.image_ids[0].write({'type': 'db',
-                                         'file_db_store': image})
+                                         'file_db_store': image,
+                                         'extension': extension})
             else:
                 self.image_ids = [(0, 0, {'type': 'db',
                                           'file_db_store': image,
+                                          'extension': extension,
                                           'name': _('Main image')})]
         elif self.image_ids:
             self.image_ids[0].unlink()

@@ -116,6 +116,9 @@ class ProductImage(models.Model):
     product_id = fields.Many2one(
         comodel_name='product.template', string='Product', required=True,
         ondelete='cascade')
+    products = fields.Many2many(comodel_name='product.product',
+                                relation='image_product_product_rel',
+                                store=True, string='Variants')
 
     def _make_pretty(self, name):
         return name.replace('_', ' ').capitalize()
